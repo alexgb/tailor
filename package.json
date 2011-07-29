@@ -1,0 +1,15 @@
+{
+  "author": "Alex Gibbons",
+  "name": "tailf",
+  "description": "Web interface for tailing a log file",
+  "version": "0.0.1",
+  "dependencies": {
+    "optimist"      : ">= 0.2.6",
+    "express"       : ">= 2.x.x",
+    "less"          : ">= 0.0.1",
+    "coffee-script" : ">= 1.x.x",
+    "jade"          : ">= 0.0.1",
+    "socket.io"     : ">= 0.0.1",
+    "tail"          : ">= 0.0.1"
+  }
+}

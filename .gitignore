@@ -1,0 +1,6 @@
+# generated coffee script js files
+public/*.js
+server.js
+
+# npm modules
+node_modules
