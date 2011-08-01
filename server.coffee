@@ -48,4 +48,4 @@ files.forEach (file) ->
     io.sockets.emit('newlog', {text: data})
 
 
-console.log("Tailf started, listening on port #{app.address().port}")
+console.log("Tailor started, listening on port #{app.address().port}")

@@ -1,5 +1,7 @@
 socket = io.connect(location.origin)
 
 socket.on 'newlog', (data) -> 
-  el = document.getElementById('tailor-out')
-  el.textContent += "#{data.text}\n"
+  row = $('<pre>').attr('class', 'row').prependTo('#tailor').text(data.text)
+  row.attr('style', 'display:none; opacity: 0;')
+  row.slideDown(200).animate({opacity: 1}, 200)
+  
