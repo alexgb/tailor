@@ -1,4 +1,12 @@
 h1 Tailor
 h3 Tailing: #{files.join(", ")}
-div#tailor
+script(id="log-row-template", type="text/x-handlebars-template")
+  .colmask.row
+    .colright
+      .col1wrap
+        .col1.line
+          pre="{{text}}"
+      .col2.margin
+        pre
+#tailor
 script(src="/socket.js")

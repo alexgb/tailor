@@ -1,8 +1,65 @@
 #tailor {
-  border: 1px solid black;
+  border: 1px solid #AAA;
+}
+
+.row:nth-child(odd) .colright { background-color:#eee; }
+.row:nth-child(even) .colright { background-color:#fff; }
+
+.row pre {
+  white-space: pre-line;
+  margin:0;
+}
+
+.margin {
+  color: white;
+  text-align: right;
+}
+
+.row {
+  background: #336;
+}
+
+.clear {
+  clear: both;
+}
+
+
+@col-width: 12em;
+@col-margin: 1em;
+
+.colmask {
+  position:relative;
+  clear:both;
+  float:left;
+  width:100%;
+  overflow:hidden;
   
-  .row {
-    margin: 0;
-    border: 1px solid red;
+  .colright {
+    float: left;
+    width: 200%;
+    position: relative;
+    left: @col-width;
+    background: white;
+  }
+  
+  .col1wrap {
+    float: right;
+    width: 50%;
+    position: relative;
+    right: @col-width;
+  }
+  
+  .col1 {
+    margin: 0 @col-margin 0 @col-width + @col-margin;
+    position: relative;
+    right: 100%;
+    overflow: hidden;
+  }
+
+  .col2 {
+    float: left;
+    width: @col-width - 2 * @col-margin;
+    position: relative;
+    right: @col-width - @col-margin;
   }
 }

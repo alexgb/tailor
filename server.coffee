@@ -45,7 +45,7 @@ io = socketIo.listen(app)
 files.forEach (file) ->
   tail = new Tail(file)
   tail.on 'line', (data) ->
-    io.sockets.emit('newlog', {text: data})
+    io.sockets.emit('newlog', {text: data, time: new Date()})
 
 
 console.log("Tailor started, listening on port #{app.address().port}")
