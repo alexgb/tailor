@@ -1,5 +1,6 @@
 socket = io.connect(location.origin)
 
+# setup socket listener
 socket.on 'newlog', (data) -> 
   tpl = $('#log-row-template').text()
   row = $(compile(tpl, data))
@@ -7,16 +8,8 @@ socket.on 'newlog', (data) ->
     drawRelativeTime(el);
   
   row.prependTo('#tailor')
-  row.attr('style', 'display:none; opacity: 0;')
+  row.attr('style', 'display:none; opacity: 0; background-color:'+data.color+';')
   row.slideDown(200).animate({opacity: 1}, 200)
-  
-
-# adjust relative time labels
-window.setInterval(() -> 
-  $('.row .margin pre').each (i, el) ->
-    drawRelativeTime(el);
-, 1000)
-
 
 # draw relative time for el
 drawRelativeTime = (el) ->
@@ -32,3 +25,10 @@ compile = (tpl, data) ->
     tpl = tpl.replace(m, data[key])
     
   tpl
+  
+
+# adjust relative time labels
+window.setInterval(() -> 
+  $('.row .margin pre').each (i, el) ->
+    drawRelativeTime(el);
+, 1000)

@@ -6,10 +6,16 @@ env       = process.env.NODE_ENV || 'development'
 Tail      = require('tail').Tail
 express   = require('express')
 socketIo  = require('socket.io')
+Color     = require('color')
 
 
+# prepare files
+files = files.map (file, index) ->
+  path:   file
+  color:  Color().hsv(360/files.length * index, 70, 80)
+
+# app
 app = express.createServer()
-
 
 # configure
 app.configure () ->
@@ -42,10 +48,10 @@ io = socketIo.listen(app)
 
 
 # tail
-files.forEach (file) ->
-  tail = new Tail(file)
+files.forEach (file, fileIndex) ->
+  tail = new Tail(file.path)
   tail.on 'line', (data) ->
-    io.sockets.emit('newlog', {text: data, time: new Date()})
+    io.sockets.emit('newlog', {text: data, time: new Date(), fileIndex: fileIndex, color: file.color.hexString()})
 
 
 console.log("Tailor started, listening on port #{app.address().port}")

@@ -1,5 +1,11 @@
-h1 Tailor
-h3 Tailing: #{files.join(", ")}
+#header
+  h1 Tailor
+  - each file in files
+    span(class="legend", style="background-color:#{file.color.hexString()}") #{file.path}
+hr
+.container
+  #tailor
+  .clear
 script(id="log-row-template", type="text/x-handlebars-template")
   .colmask.row
     .colright
@@ -8,5 +14,4 @@ script(id="log-row-template", type="text/x-handlebars-template")
           pre="{{text}}"
       .col2.margin
         pre
-#tailor
 script(src="/socket.js")

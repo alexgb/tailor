@@ -1,9 +1,47 @@
-#tailor {
+@font-face {
+  font-family: 'Inconsolata';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Inconsolata'), url('http://themes.googleusercontent.com/static/fonts/inconsolata/v1/BjAYBlHtW3CJxDcjzrnZCCwlidHJgAgmTjOEEzwu1L8.ttf') format('truetype');
+}
+
+body {
+  background-color: #F3F3F3;
+  font-family: sans-serif;
+  color: #454545;
+  margin: 10px 40px;
+}
+
+h1 {
+  font-size: 40px;
+}
+
+pre {
+  font-family: 'Inconsolata', monospace
+}
+
+hr {
   border: 1px solid #AAA;
 }
 
-.row:nth-child(odd) .colright { background-color:#eee; }
-.row:nth-child(even) .colright { background-color:#fff; }
+.legend {
+  .rounded-corners;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  margin: 4px;
+  padding: 4px;
+  display: inline-block;
+}
+
+.container {
+  .box-shadow;
+  margin-top: 20px;
+  border: 1px solid #CCC;
+}
+
+.row:nth-child(odd) .colright { background-color:#F3F3F3; }
+.row:nth-child(even) .colright { background-color:#FFFFFF; }
 
 .row pre {
   white-space: pre-line;
@@ -15,16 +53,16 @@
   text-align: right;
 }
 
-.row {
+/*.row {
   background: #336;
-}
+}*/
 
 .clear {
   clear: both;
 }
 
 
-@col-width: 12em;
+@col-width: 9em;
 @col-margin: 1em;
 
 .colmask {
@@ -62,4 +100,20 @@
     position: relative;
     right: @col-width - @col-margin;
   }
+}
+
+// MIXINS
+// ......
+
+.rounded-corners (@radius: 5px) {
+  border-radius: @radius;
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+}
+
+//0 2px 5px rgba(0, 0, 0, 0.05)
+.box-shadow (@distance: 5px, @x-offset: 1px, @y-offset: 2px, @color: rgba(0, 0, 0, 0.1)) {
+  -moz-box-shadow: @x-offset @y-offset @distance @color;
+  -webkit-box-shadow: @x-offset @y-offset @distance @color;
+  box-shadow: @x-offset @y-offset @distance @color;
 }
