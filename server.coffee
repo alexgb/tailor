@@ -1,7 +1,30 @@
-argv      = require('optimist').argv
-port      = argv.port || argv.p || 3000
+opts = require('optimist')
+  .usage('Start the Tailor server.\nUsage:  \t$0 [files]\nExample:\t$0 /var/log/*.log')
+  .options 'h',
+    alias     : 'help'
+    boolean   : true
+    describe  : 'show this help message'
+  .options 'p', 
+    alias     : 'port'
+    default   : 3030
+    describe  : 'port for http server'
+  .options 'u', 
+    alias     : 'user'
+    describe  : 'server basic auth, requires -u'
+  .options 'w', 
+    alias     : 'password'
+    describe  : 'server basic auth, requires -w'
+
+argv = opts.argv
+
+if argv.h
+  opts.showHelp()
+  process.exit()
+
+port      = argv.p
+auth_user = argv.u
+auth_pass = argv.w
 files     = argv._
-env       = process.env.NODE_ENV || 'development'
 
 Tail      = require('tail').Tail
 express   = require('express')
@@ -16,8 +39,6 @@ files = files.map (file, index) ->
 
 # app
 app = express.createServer()
-
-# configure
 app.configure () ->
   app.set('views', "#{__dirname}/server/views")
   app.set('view engine', 'jade')
@@ -26,26 +47,26 @@ app.configure () ->
   app.use(express.compiler(src: "#{__dirname}/public", enable: ['less']))
   app.use(express.compiler(src: "#{__dirname}/client", dest: "#{__dirname}/public", enable: ['coffeescript']))
   app.use(express.static("#{__dirname}/public"))
-  
-app.configure 'development', () ->
-  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }))
+  if auth_user && auth_pass
+    app.use(express.basicAuth (user, pass) ->
+      user == auth_user && pass == auth_pass
+    ,'Protected Resource')
+  app.use(express.errorHandler())
 
-app.configure 'production', () ->
-  app.use(express.errorHandler) 
   
-  
-# routes
+# app routes
 app.get '/', (req, res) ->
   res.render 'index', files: files
 
 
-# listen
+# app listen
 app.listen(port)
 
 
 # socket
 io = socketIo.listen(app)
-
+io.configure 'production', () ->
+  io.set('log level', 1)
 
 # tail
 files.forEach (file, fileIndex) ->
