@@ -1,5 +1,9 @@
 # Tailor
 
+Watch your log files through a web UI.
+
+<img src="http://alexandergibbons.com/static/tailor_screen_shot.png" title="Screen Shot" width="800"/>
+
 ## Install
 
 Install app
@@ -14,9 +18,13 @@ You may also need to install coffee script
 
 ## Usage
 
-Start the server, optionally passing a port for the server to run on and specifying any number of files to watch.
+Basic usage
 
-    $ coffee server.coffee -p 3003 /var/log/apache2/access_log /var/log/apache2/server_log
+    $ coffee server.coffee /var/log/*.log
+
+See help for more options, including enabling http basic auth.
+
+    $ coffee server.coffee --help
     
 Open browser and view logs as they change.
 
